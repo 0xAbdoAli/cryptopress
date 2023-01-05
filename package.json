@@ -1,0 +1,38 @@
+{
+  "name": "cryptopress",
+  "version": "1.0.0",
+  "description": "create an express app intgerated with Typescript , Prettier , Eslint",
+  "main": "./build/index.js",
+  "scripts": {
+    "dev": "nodemon ./build/index.js",
+    "start": "npx rimraf build && npx tsc && node ./build/index.js",
+    "clean": "npx rimraf build",
+    "build": "npx rimraf build && npx tsc",
+    "test": "npx rimraf build && npx tsc && jasmine",
+    "format": "npx prettier --write 'src/**/*.{ts,js}' ",
+    "lint": "npx eslint . --ext .ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Crypt00o/cryptopress.git"
+  },
+  "keywords": [
+    "cryptopress",
+    "create express app",
+    "express",
+    "express app",
+    "CryptoPress",
+    "Cryptopress"
+  ],
+  "author": "Eslam Mohamed Moawed Elabd",
+  "license": "MIT",
+  "bin": {
+    "cryptopress": "./build/index.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.31.0",
+    "prettier": "^2.8.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.9.4"
+  }
+}
