@@ -10,6 +10,8 @@
 <br>
 
 ## 2) Installation 
+- ####  with npm
+<br>
 it,s very easy you can install it with npm by running following command :
 
 ```
@@ -18,12 +20,20 @@ npm install -g cryptopress
 
 <br>
 
-## 3) Useing Docker
+- ####  Useing Docker
 
 ```
-docker pull Crypt00o/cryptopress:latest && docker run -it Crypt00o/cryptopress:latest
+docker pull crypt00o/cryptopress:latest && docker run -it crypt00o/cryptopress:latest
 ```
 
+<br>
+
+## 3) Usage
+```
+cryptopress						"to init project in current directory"
+cryptopress	/path/to/project	"to init project in spefic dir"
+cryptopress	--help				"to dispaly this help"
+```
 
 -----
 
