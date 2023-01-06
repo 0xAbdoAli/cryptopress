@@ -4,9 +4,10 @@ exports.cryptopressWriteingBasicApp = void 0;
 var path_1 = require("path");
 var fs_1 = require("fs");
 var child_process_1 = require("child_process");
+var cryptopress_1 = require("./cryptopress");
 function createAppMap() {
     var appMap = new Map();
-    var sourcePath = (0, path_1.join)(process.cwd(), "src");
+    var sourcePath = (0, path_1.join)(cryptopress_1.rootProjectDir, "src");
     appMap.set("app", (0, path_1.join)(sourcePath, "app.ts"));
     appMap.set("mainController", (0, path_1.join)(sourcePath, "controllers", "index.ts"));
     appMap.set("mainRouter", (0, path_1.join)(sourcePath, "routes", "index.ts"));
@@ -35,10 +36,13 @@ function finalCheckAppContent(appMap) {
     return true;
 }
 function formatingAndLintingApp() {
-    (0, child_process_1.execSync)("npm run format && npm run lint");
+    (0, child_process_1.execSync)("npm run format --prefix ".concat(cryptopress_1.rootProjectDir, " && npm run lint --prefix ").concat(cryptopress_1.rootProjectDir));
 }
 function cryptopressWriteingBasicApp() {
     try {
+        console.log('[+] Stage (5) : Writeing Final Application ');
+        if (!(0, fs_1.existsSync)((0, path_1.join)(cryptopress_1.rootProjectDir, "package.json")))
+            throw new Error("Error package.json Not Found");
         var appMap = createAppMap();
         writeFileIfNotExists(appMap.get("app"), writeMainApp());
         writeFileIfNotExists(appMap.get("mainRouter"), writeMainRouter());

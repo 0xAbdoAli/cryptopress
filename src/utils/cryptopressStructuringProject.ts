@@ -1,20 +1,20 @@
 import {join} from "path"
 import {mkdirSync,existsSync} from "fs"
 
-const currentWorkingDir=process.cwd()
+import { rootProjectDir } from "./cryptopress";
 
 function createProjectMap():Map<string,string>{
 	  
 	  let projectMap :Map<string,string>= new Map<string,string>();
 	 
-	  projectMap.set("typescriptConfig", join(currentWorkingDir,"tsconfig.json"))
-	  projectMap.set("jasmineConfig", join(currentWorkingDir,"spec","support","jasmine.json" ) )
-	  projectMap.set("jasmineReporterConfig", join(currentWorkingDir,"src","tests","helpers","repoter.ts"))
-	  projectMap.set("prettierConfig", join(currentWorkingDir,".prettierrc") )
-	  projectMap.set("prettierIgnoreConfig", join(currentWorkingDir,".prettierignore") )
-	  projectMap.set("eslintConfig", join(currentWorkingDir,".eslintrc.js") )
-	  projectMap.set("eslintIgnoreConfig", join(currentWorkingDir,".eslintignore") )
-	  projectMap.set("dotenvConfig",join(currentWorkingDir,".env") ) 
+	  projectMap.set("typescriptConfig", join(rootProjectDir,"tsconfig.json"))
+	  projectMap.set("jasmineConfig", join(rootProjectDir,"spec","support","jasmine.json" ) )
+	  projectMap.set("jasmineReporterConfig", join(rootProjectDir,"src","tests","helpers","repoter.ts"))
+	  projectMap.set("prettierConfig", join(rootProjectDir,".prettierrc") )
+	  projectMap.set("prettierIgnoreConfig", join(rootProjectDir,".prettierignore") )
+	  projectMap.set("eslintConfig", join(rootProjectDir,".eslintrc.js") )
+	  projectMap.set("eslintIgnoreConfig", join(rootProjectDir,".eslintignore") )
+	  projectMap.set("dotenvConfig",join(rootProjectDir,".env") ) 
 	  return projectMap ;
 }
 
@@ -31,29 +31,34 @@ function finalDirsCheck(dirsToMake:Array<string>):boolean{
 
 
 function cryptopressStructuringProject():boolean{
-	  
+		  
 	  try{
-			const dirsToMake=[
-				  join(currentWorkingDir,"public"),
-				  join(currentWorkingDir,"public","static"),
-				  join(currentWorkingDir,"public","scripts"),
-				  join(currentWorkingDir,"public","stylecheets"),
-				  join(currentWorkingDir,"spec"),
-				  join(currentWorkingDir,"spec","support"),
-				  join(currentWorkingDir,"src"),
-				  join(currentWorkingDir,"src","controllers"),
-				  join(currentWorkingDir,"src","routes"),
-				  join(currentWorkingDir,"src","middlewares"),
-				  join(currentWorkingDir,"src","utils"),
-				  join(currentWorkingDir,"src","models"),
-				  join(currentWorkingDir,"src","tests"),
-				  join(currentWorkingDir,"src","tests","helpers"),
-				  join(currentWorkingDir,"src","views")
-			] ;
+			    console.log('[+] Stage (3) : Structuring Project And Files ')
+				  
+			    if( !existsSync(join(rootProjectDir,"package.json")) ) throw new Error("Error package.json Not Found");
+				
+				const dirsToMake=[
+				  join(rootProjectDir,"public"),
+				  join(rootProjectDir,"public","static"),
+				  join(rootProjectDir,"public","scripts"),
+				  join(rootProjectDir,"public","stylecheets"),
+				  join(rootProjectDir,"spec"),
+				  join(rootProjectDir,"spec","support"),
+				  join(rootProjectDir,"src"),
+				  join(rootProjectDir,"src","controllers"),
+				  join(rootProjectDir,"src","routes"),
+				  join(rootProjectDir,"src","middlewares"),
+				  join(rootProjectDir,"src","utils"),
+				  join(rootProjectDir,"src","models"),
+				  join(rootProjectDir,"src","tests"),
+				  join(rootProjectDir,"src","tests","helpers"),
+				  join(rootProjectDir,"src","views")
+				  ] ;
 
-			dirsToMake.forEach((dir,_index,_array)=>{if(!existsSync(dir)) mkdirSync(dir);})
-			return finalDirsCheck(dirsToMake) ;
-	  
+				  dirsToMake.forEach((dir,_index,_array)=>{if(!existsSync(dir)) mkdirSync(dir);})
+			
+				  return finalDirsCheck(dirsToMake) ;
+			
 	  }
 	  
 	  catch(err:unknown){

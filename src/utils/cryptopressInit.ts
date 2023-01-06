@@ -1,12 +1,13 @@
 import {writeFileSync,existsSync} from "fs"
 import {join,parse} from "path"
 
+import {rootProjectDir} from "./cryptopress"
 
 
 function createPackageDotJson():string{
 	  return `
 {
-  "name": "${parse(process.cwd()).name}",
+  "name": "${parse(rootProjectDir).name}",
   "version": "1.0.0",
   "description": "",
   "main": "./build/app.js",
@@ -29,13 +30,16 @@ function createPackageDotJson():string{
 
 function cryptopressInit():boolean{
 	  try{
-			if(existsSync(join(process.cwd(),"package.json"))) return true ; // package.json already exists  
+			console.log('[+] Stage (1) : Initing Project and Configing package.json ')
+			
+			const packageJsonPath=join(rootProjectDir,"package.json")
+			if(existsSync(packageJsonPath)) return true ; // package.json already exists  
 	  
 			else{			  
-				 writeFileSync("package.json",createPackageDotJson(),{
+				 writeFileSync(packageJsonPath,createPackageDotJson(),{
 				 encoding:"utf-8"
 				 });
-				  if(existsSync(join(process.cwd(),"package.json"))) return true ; //package.json created
+				  if(existsSync(packageJsonPath)) return true ; //package.json created
 				  else return cryptopressInit() ; // re try create package.json 
 			}
 	  	 

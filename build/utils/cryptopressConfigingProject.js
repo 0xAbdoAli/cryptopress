@@ -2,7 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cryptopressConfigingProject = void 0;
 var fs_1 = require("fs");
+var path_1 = require("path");
 var cryptopressStructuringProject_1 = require("./cryptopressStructuringProject");
+var cryptopress_1 = require("./cryptopress");
 function writeFileIfNotExists(filename, data) {
     if (!(0, fs_1.existsSync)(filename))
         (0, fs_1.writeFileSync)(filename, data, { encoding: "utf8" });
@@ -40,6 +42,9 @@ function finalConfigsCheck(projectMap) {
 }
 function cryptopressConfigingProject() {
     try {
+        console.log('[+] Stage (4) : Configing Project  ');
+        if (!(0, fs_1.existsSync)((0, path_1.join)(cryptopress_1.rootProjectDir, "package.json")))
+            throw new Error("Error package.json Not Found");
         var projectMap = (0, cryptopressStructuringProject_1.createProjectMap)();
         writeFileIfNotExists(projectMap.get("typescriptConfig"), createTypeScriptConfig());
         writeFileIfNotExists(projectMap.get("prettierConfig"), createPrettierConfig());

@@ -2,9 +2,11 @@ import {join} from "path"
 import {writeFileSync,existsSync} from "fs"
 import {execSync} from "child_process"
 
+import { rootProjectDir } from "./cryptopress"
+
 function createAppMap():Map<string,string>{ 
 	  let appMap=new Map<string,string>()
-	  const sourcePath=join(process.cwd(),"src")
+	  const sourcePath=join(rootProjectDir,"src")
 	  appMap.set("app", join(sourcePath,"app.ts"))
 	  appMap.set("mainController", join(sourcePath,"controllers","index.ts") )
 	  appMap.set("mainRouter", join(sourcePath,"routes","index.ts"))
@@ -157,12 +159,17 @@ function finalCheckAppContent(appMap:Map<string,string>):boolean{
 }
 
 function formatingAndLintingApp():void{
-	  execSync("npm run format && npm run lint")
+	  execSync(`npm run format --prefix ${rootProjectDir} && npm run lint --prefix ${rootProjectDir}`)
 }
 
 function cryptopressWriteingBasicApp():boolean{
 	  
 	  try{
+			
+			console.log('[+] Stage (5) : Writeing Final Application ')
+			
+			if( !existsSync(join(rootProjectDir,"package.json")) ) throw new Error("Error package.json Not Found");
+			
 			const appMap=createAppMap()
 
 			writeFileIfNotExists(appMap.get("app") as string, writeMainApp())

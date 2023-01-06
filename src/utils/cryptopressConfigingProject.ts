@@ -1,7 +1,7 @@
 import {writeFileSync,existsSync} from "fs"
 import {join} from "path"
 import { createProjectMap } from "./cryptopressStructuringProject";
-
+import { rootProjectDir } from "./cryptopress";
 function writeFileIfNotExists(filename:string,data:string):void{
 	  if(!existsSync(filename)) writeFileSync(filename,data,{encoding:"utf8"});
 }
@@ -127,6 +127,10 @@ function finalConfigsCheck(projectMap:Map<string,string>):boolean{
 
 function cryptopressConfigingProject():boolean{
 	  try{
+			console.log('[+] Stage (4) : Configing Project  ')
+
+			if( !existsSync(join(rootProjectDir,"package.json")) ) throw new Error("Error package.json Not Found");
+
 			const projectMap=createProjectMap()
 
 			writeFileIfNotExists(projectMap.get("typescriptConfig") as string, createTypeScriptConfig())
