@@ -22,7 +22,7 @@ function banner():void{
 [+] Created By 0xCrypt00o "Eslam Mohammed"
 
 			git repo: https://github.com/Crypt00o/cryptopress.git
-			npm package : https://npmjs.com/package/cryptopress.git
+			npm package : https://npmjs.com/package/cryptopress
 
  `)
 
