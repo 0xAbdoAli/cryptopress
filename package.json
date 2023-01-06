@@ -1,6 +1,6 @@
 {
   "name": "cryptopress",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "create an express app in one shot ! intgerated with Typescript , Prettier , Eslint , Jasmine",
   "main": "./build/index.js",
   "scripts": {
